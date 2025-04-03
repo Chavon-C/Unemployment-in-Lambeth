@@ -12,13 +12,12 @@ write.csv(merged_data, "datasets/census_data.csv", row.names=F)
 
 census_data <- read.csv("datasets/census_data.csv")
 
-Output.Areas <- st_read("OA_2021_EW_BGC_V2.shp")
+Output.Areas <- st_read("shapefiles/OA_2021_EW_BGC_V2.shp")
 
 OA.Lambeth<- Output.Areas[grepl('Lambeth', Output.Areas$LSOA21NM),]
 
 OA.Census<- merge(OA.Lambeth, census_data, by.x="OA21CD", by.y="OA")
 
-#dont need to run
 st_write(OA.Census, dsn = "Census_OA_Shapefile.geojson", driver="GeoJSON")
 
 OA.Census<-st_read(dsn = "Census_OA_Shapefile.geojson")
